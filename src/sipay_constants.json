@@ -1,7 +1,7 @@
 {
   "enviroments":{
-    "sandbox": "https://sandbox.waiap.com/",
-    "live": "https://live.waiap.com/",
+    "sandbox": "https://sandbox.sipay.es/",
+    "live": "https://live.sipay.es/",
     "develop": "https://develop.sipay.es/"
   },
   "elementsIds":{

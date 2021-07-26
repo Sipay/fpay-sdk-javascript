@@ -436,7 +436,7 @@ export default class PWall{
   __log(){
     if (this.debug) {
       var args = Array.prototype.slice.call(arguments, 0);
-      args.unshift("[WAIAP DEBUG]");
+      args.unshift("[SIPAY DEBUG]");
       console.log.apply(console, args);
     }
   }

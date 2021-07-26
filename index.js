@@ -1,3 +1,3 @@
-const Waiap = require('./src/client.js').default;
+const Sipay = require('./src/client.js').default;
 
-module.exports = Waiap;
+module.exports = Sipay;

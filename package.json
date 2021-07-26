@@ -1,5 +1,5 @@
 {
-  "name": "waiap-javascript-sdk",
+  "name": "sipay-javascript-sdk",
   "version": "1.0.0",
   "description": "--- id: sdk-js title: Introducción ---",
   "main": "index.js",
@@ -23,12 +23,12 @@
     "yargs": "^16.1.1"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "build-min": "webpack --env build --config webpack.config.js"
+    "build": "webpack --mode production --config webpack.config.js",
+    "build-min": "webpack --env build --mode production --config webpack.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/waiap/javascript-sdk.git"
+    "url": "https://github.com/sipay/javascript-sdk.git"
   },
   "author": "",
   "license": "ISC"
