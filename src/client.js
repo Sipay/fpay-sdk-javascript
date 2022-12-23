@@ -32,6 +32,7 @@ export default class PWall{
     this.saleAmount         = null;
     this.tags               = null;
     this.selected           = true;
+    this.languageId         = null;
     this.events             = {
       "beforeSubmit"      : null,
       "beforeValidation"  : null,
@@ -86,6 +87,16 @@ export default class PWall{
       return this.init();
     }
 
+    this.language = function (languageId){
+      this.languageId = languageId;
+      return this.init();
+    }
+
+    this.amount = function (saleAmount){
+      this.saleAmount = saleAmount * 100;
+      return this.init();
+    }
+
     this.validateFields = function (validationArray){
       this.validationArray = validationArray;
       for (var field in this.validationArray) {
@@ -120,7 +131,7 @@ export default class PWall{
       if (this._validateCheckoutData() === true && this.validateFunction() === true && this.selected === true) {
         this._callEvent("afterValidation");
         this._createAppDiv(this.elementId);
-        this._createAppScript(this.backendUrl, "false", this.customerGroupId, this.saleAmount, this.currencyCode, this.tags);
+        this._createAppScript(this.backendUrl, "false", this.customerGroupId, this.saleAmount, this.currencyCode, this.tags, null, null, null, this.languageId);
         this.__log("IS VALID, RENDERING");
       } else {
         this._removeAppDiv();
@@ -325,7 +336,7 @@ export default class PWall{
     }
   }
 
-  _createAppScript(backendUrl, isBackoffice, groupId, amount, currency, tags = null, profile = null, theme = null, logoUrl = null) {
+  _createAppScript(backendUrl, isBackoffice, groupId, amount, currency, tags = null, profile = null, theme = null, logoUrl = null, language = null) {
     var head      = document.getElementsByTagName('head')[0];
     var scriptId  = sipay_constants["elementsIds"]["script"];
     var divId     = sipay_constants["elementsIds"]["div"]; 
@@ -347,6 +358,11 @@ export default class PWall{
       } else {
         script.removeAttribute('data-profile');
       }
+      if (language) {
+        script.dataset.language = language;
+      } else {
+        script.removeAttribute('data-language');
+      }
       script.dataset.groupId = groupId;
       script.dataset.amount = Math.round(amount);
       script.dataset.currency = currency;
@@ -366,6 +382,9 @@ export default class PWall{
     }
     if(theme){
       script.dataset.theme = theme;
+    }
+    if(language){
+      script.dataset.language = language;
     }
     if(logoUrl){
       script.dataset.logo = logoUrl;
