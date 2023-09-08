@@ -2,7 +2,8 @@
   "enviroments":{
     "sandbox": "https://sandbox.sipay.es/",
     "live": "https://live.sipay.es/",
-    "develop": "https://develop.sipay.es/"
+    "develop": "https://develop.sipay.es/",
+    "staging": "https://staging.sipay.es/"
   },
   "elementsIds":{
     "div":"app",
