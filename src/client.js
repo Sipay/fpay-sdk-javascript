@@ -186,11 +186,11 @@ export default class PWall{
       return fieldsValidation;
     }
 
-    this._callEvent = function(event){
+    this._callEvent = function(event, data){
       var callback = this.events[event];
       if (callback !== null && typeof callback === "function"){
         this.__log("CALLING EVENT " + event);
-        return callback();
+        return callback(data);
       }
     }
 
@@ -439,8 +439,8 @@ export default class PWall{
         window.PaymentWall.listenTo(placeholder, "payment_wall_payment_ko", function () {
           this._callEvent("paymentKo");
         }.bind(this));
-        window.PaymentWall.listenTo(placeholder, "payment_wall_capture_ko", function () {
-          this._callEvent("captureKo");
+        window.PaymentWall.listenTo(placeholder, "payment_wall_capture_ko", function (data) {
+          this._callEvent("captureKo", data);
         }.bind(this));
         
       }.bind(this));
