@@ -33,6 +33,7 @@ export default class PWall{
     this.tags               = null;
     this.selected           = true;
     this.languageId         = null;
+    this.timeout            = null;
     this.events             = {
       "beforeSubmit"      : null,
       "beforeValidation"  : null,
@@ -64,6 +65,11 @@ export default class PWall{
 
     this.currency = function (currencyCode){
       this.currencyCode = currencyCode;
+      return this;
+    }
+
+    this.timeout = function(timeout){
+      this.timeout = timeout;
       return this;
     }
 
@@ -131,7 +137,7 @@ export default class PWall{
       if (this._validateCheckoutData() === true && this.validateFunction() === true && this.selected === true) {
         this._callEvent("afterValidation");
         this._createAppDiv(this.elementId);
-        this._createAppScript(this.backendUrl, "false", this.customerGroupId, this.saleAmount, this.currencyCode, this.tags, null, null, null, this.languageId);
+        this._createAppScript(this.backendUrl, "false", this.customerGroupId, this.saleAmount, this.currencyCode, this.tags, null, null, null, this.languageId, this.timeout);
         this.__log("IS VALID, RENDERING");
       } else {
         this._removeAppDiv();
@@ -336,7 +342,7 @@ export default class PWall{
     }
   }
 
-  _createAppScript(backendUrl, isBackoffice, groupId, amount, currency, tags = null, profile = null, theme = null, logoUrl = null, language = null) {
+  _createAppScript(backendUrl, isBackoffice, groupId, amount, currency, tags = null, profile = null, theme = null, logoUrl = null, language = null, timeout = null) {
     var head      = document.getElementsByTagName('head')[0];
     var scriptId  = sipay_constants["elementsIds"]["script"];
     var divId     = sipay_constants["elementsIds"]["div"]; 
@@ -362,6 +368,11 @@ export default class PWall{
         script.dataset.language = language;
       } else {
         script.removeAttribute('data-language');
+      }
+      if (timeout) {
+        script.dataset.timeout = timeout;
+      } else {
+        script.removeAttribute('data-timeout');
       }
       script.dataset.groupId = groupId;
       script.dataset.amount = Math.round(amount);
@@ -391,6 +402,9 @@ export default class PWall{
     }
     if(isBackoffice === "true"){
       script.dataset.backoffice = isBackoffice;
+    }
+    if(timeout){
+      script.dataset.timeout = timeout;
     }
     
     script.dataset.placeholder  = "#" + divId;
