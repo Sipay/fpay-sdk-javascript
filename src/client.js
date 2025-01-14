@@ -40,6 +40,7 @@ export default class PWall{
       "afterValidation"   : null,
       "paymentOk"         : null,
       "paymentKo"         : null,
+      "captureKo"         : null,
       "validationFunc"    : function(){return true;}
     }
 
@@ -437,6 +438,9 @@ export default class PWall{
         }.bind(this));
         window.PaymentWall.listenTo(placeholder, "payment_wall_payment_ko", function () {
           this._callEvent("paymentKo");
+        }.bind(this));
+        window.PaymentWall.listenTo(placeholder, "payment_wall_capture_ko", function () {
+          this._callEvent("captureKo");
         }.bind(this));
         
       }.bind(this));
